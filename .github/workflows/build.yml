@@ -1,0 +1,30 @@
+name: Build
+
+on:
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: windows-2025
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Run build.bat
+        shell: cmd
+        run: build.bat
+
+      - name: Run build.bat
+        shell: cmd
+        run: installer/build.bat
+
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: artifacts
+          path: |
+            x86/**
+            amd64/**
+            arm64/**
+            installer/dist/**
