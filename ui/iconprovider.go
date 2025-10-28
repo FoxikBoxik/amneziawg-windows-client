@@ -23,13 +23,7 @@ type widthAndDllIdx struct {
 	dll   string
 }
 
-type widthAndPath struct {
-	width int
-	path  string
-}
-
 var cachedOverlayIconsForWidthAndState = make(map[widthAndState]walk.Image)
-var cachedImagesForWidthAndPath = make(map[widthAndPath]walk.Image)
 
 func iconWithOverlayForState(state manager.TunnelState, size int) (icon walk.Image, err error) {
 	icon = cachedOverlayIconsForWidthAndState[widthAndState{size, state}]
@@ -37,20 +31,20 @@ func iconWithOverlayForState(state manager.TunnelState, size int) (icon walk.Ima
 		return
 	}
 
-	wireguardIcon, err := loadLogoImage(size)
+	wireguardIcon, err := loadLogoIcon(size)
 	if err != nil {
 		return
 	}
 
 	if state == manager.TunnelStopped {
-		return wireguardIcon, err
+		return wireguardIcon, err // TODO: if we find something prettier than the gray dot, then remove this clause
 	}
 
 	iconSize := wireguardIcon.Size()
 	w := int(float64(iconSize.Width) * 0.65)
 	h := int(float64(iconSize.Height) * 0.65)
 	overlayBounds := walk.Rectangle{iconSize.Width - w, iconSize.Height - h, w, h}
-	overlayIcon, err := imageForState(state, overlayBounds.Width)
+	overlayIcon, err := iconForState(state, overlayBounds.Width)
 	if err != nil {
 		return
 	}
@@ -81,83 +75,14 @@ func iconForState(state manager.TunnelState, size int) (icon *walk.Icon, err err
 	case manager.TunnelStarted:
 		icon, err = loadSystemIcon("imageres", -106, size)
 	case manager.TunnelStopped:
-		icon, err = walk.NewIconFromResourceIdWithSize(8, walk.Size{size, size})
+		icon, err = walk.NewIconFromResourceIdWithSize(8, walk.Size{size, size}) // TODO: replace with real icon from imageres/shell32
 	default:
-		icon, err = loadSystemIcon("shell32", -16739, size)
+		icon, err = loadSystemIcon("shell32", -16739, size) // TODO: this doesn't look that great overlayed on the app icon
 	}
 	if err == nil {
 		cachedIconsForWidthAndState[widthAndState{size, state}] = icon
 	}
 	return
-}
-
-// imageForState возвращает изображение для состояния туннеля
-func imageForState(state manager.TunnelState, size int) (img walk.Image, err error) {
-	// Для состояний используем стандартные иконки
-	icon, err := iconForState(state, size)
-	if err != nil {
-		return nil, err
-	}
-
-	// Конвертируем иконку в изображение
-	return iconToImage(icon, size)
-}
-
-// loadPNGImage загружает PNG файл и масштабирует его до нужного размера
-func loadPNGImage(path string, size int) (walk.Image, error) {
-	cacheKey := widthAndPath{size, path}
-	if cached, exists := cachedImagesForWidthAndPath[cacheKey]; exists {
-		return cached, nil
-	}
-
-	// Загружаем изображение из файла
-	img, err := walk.NewImageFromFile(path)
-	if err != nil {
-		return nil, err
-	}
-
-	// Масштабируем изображение если нужно
-	imgSize := img.Size()
-	if imgSize.Width != size || imgSize.Height != size {
-		scaledImg, err := scaleImage(img, size, size)
-		if err != nil {
-			return nil, err
-		}
-		cachedImagesForWidthAndPath[cacheKey] = scaledImg
-		return scaledImg, nil
-	}
-
-	cachedImagesForWidthAndPath[cacheKey] = img
-	return img, nil
-}
-
-// scaleImage масштабирует изображение до указанных размеров
-func scaleImage(src walk.Image, width, height int) (walk.Image, error) {
-	return walk.NewPaintFuncImage(walk.Size{width, height}, func(canvas *walk.Canvas, bounds walk.Rectangle) error {
-		return canvas.DrawImageStretched(src, bounds)
-	}), nil
-}
-
-// iconToImage конвертирует иконку в изображение
-func iconToImage(icon *walk.Icon, size int) (walk.Image, error) {
-	return walk.NewPaintFuncImage(walk.Size{size, size}, func(canvas *walk.Canvas, bounds walk.Rectangle) error {
-		return canvas.DrawIconStretched(icon, bounds)
-	}), nil
-}
-
-// loadLogoImage загружает логотип из PNG файла
-func loadLogoImage(size int) (walk.Image, error) {
-	// Загружаем PNG логотип из конкретного пути
-	img, err := loadPNGImage("icon/wireguard.png", size)
-	if err != nil {
-		// Fallback к старому методу загрузки иконки если PNG не найден
-		icon, err := loadLogoIcon(size)
-		if err != nil {
-			return nil, err
-		}
-		return iconToImage(icon, size)
-	}
-	return img, nil
 }
 
 func textForState(state manager.TunnelState, withEllipsis bool) (text string) {
