@@ -106,7 +106,7 @@ func runAboutDialog(owner walk.Form) error {
 	copyrightFont, _ := walk.NewFont("Segoe UI", 7, 0)
 	copyrightLbl.SetFont(copyrightFont)
 	copyrightLbl.SetTextAlignment(walk.AlignHCenterVNear)
-	copyrightLbl.SetText("Copyright © 2015-2022 Jason A. Donenfeld.\nCopyright © 2024 AmneziaVPN. AmneziaWG is based on WireGuard,\nchanges and modifications made by AmneziaVPN. All Rights Reserved.")
+	copyrightLbl.SetText("Copyright © 2015-2022 Jason A. Donenfeld.\nCopyright © 2025 AmneziaVPN. AmneziaWG is based on WireGuard,\nchanges and modifications made by FoxinaBox. All Rights Not Reserved.")
 
 	buttonCP, err := walk.NewComposite(showingAboutDialog)
 	if err != nil {
