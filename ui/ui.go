@@ -79,7 +79,7 @@ func RunUI() {
 					tray.UpdateFound()
 				}
 			case manager.UpdateStateUpdatesDisabledUnofficialBuild:
-				mtw.SetTitle(l18n.Sprintf("%s (unsigned build, no updates, AWG 1.5 MOD) ", mtw.Title()))
+				mtw.SetTitle(l18n.Sprintf("%s (неофицальный билд) ", mtw.Title()))
 			}
 		})
 	}

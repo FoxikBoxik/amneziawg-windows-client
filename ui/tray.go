@@ -54,7 +54,7 @@ func NewTray(mtw *ManageTunnelsWindow) (*Tray, error) {
 func (tray *Tray) setup() error {
 	tray.clicked = tray.onManageTunnels
 
-	tray.SetToolTip(l18n.Sprintf("AmneziaWG: Deactivated"))
+	tray.SetToolTip(l18n.Sprintf("DementiaWG: Deactivated"))
 	tray.SetVisible(true)
 	if icon, err := loadLogoIcon(16); err == nil {
 		tray.SetIcon(icon)
@@ -84,7 +84,7 @@ func (tray *Tray) setup() error {
 		{label: l18n.Sprintf("&Manage tunnels…"), handler: tray.onManageTunnels, enabled: true, defawlt: true},
 		{label: l18n.Sprintf("&Import tunnel(s) from file…"), handler: tray.onImport, enabled: true, hidden: !IsAdmin},
 		{separator: true},
-		{label: l18n.Sprintf("&About AmneziaWG…"), handler: tray.onAbout, enabled: true},
+		{label: l18n.Sprintf("&О DementiaWG…"), handler: tray.onAbout, enabled: true},
 		{label: l18n.Sprintf("E&xit"), handler: onQuit, enabled: true, hidden: !IsAdmin},
 	} {
 		var action *walk.Action
@@ -263,18 +263,18 @@ func (tray *Tray) onTunnelChange(tunnel *manager.Tunnel, state, globalState mana
 				case manager.TunnelStarted:
 					if !wasChecked {
 						icon, _ := iconWithOverlayForState(state, 128)
-						tray.ShowCustom(l18n.Sprintf("AmneziaWG Activated"), l18n.Sprintf("The %s tunnel has been activated.", tunnel.Name), icon)
+						tray.ShowCustom(l18n.Sprintf("DementiaWG Activated"), l18n.Sprintf("The %s tunnel has been activated.", tunnel.Name), icon)
 					}
 
 				case manager.TunnelStopped:
 					if wasChecked {
 						icon, _ := loadSystemIcon("imageres", -31, 128) // TODO: this icon isn't very good...
-						tray.ShowCustom(l18n.Sprintf("AmneziaWG Deactivated"), l18n.Sprintf("The %s tunnel has been deactivated.", tunnel.Name), icon)
+						tray.ShowCustom(l18n.Sprintf("DementiaWG Deactivated"), l18n.Sprintf("The %s tunnel has been deactivated.", tunnel.Name), icon)
 					}
 				}
 			}
 		} else if !tray.mtw.Visible() {
-			tray.ShowError(l18n.Sprintf("AmneziaWG Tunnel Error"), err.Error())
+			tray.ShowError(l18n.Sprintf("DementiaWG Tunnel Error"), err.Error())
 		}
 		tray.setTunnelState(tunnel, state)
 	})
@@ -288,7 +288,7 @@ func (tray *Tray) updateGlobalState(globalState manager.TunnelState) {
 	actions := tray.ContextMenu().Actions()
 	statusAction := actions.At(0)
 
-	tray.SetToolTip(l18n.Sprintf("AmneziaWG: %s", textForState(globalState, true)))
+	tray.SetToolTip(l18n.Sprintf("DementiaWG: %s", textForState(globalState, true)))
 	stateText := textForState(globalState, false)
 	stateIcon, err := iconForState(globalState, 16)
 	if err == nil {

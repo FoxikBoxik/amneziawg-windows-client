@@ -74,3 +74,5 @@ if exist .deps\prepared goto :build
 :error
 	echo [-] Failed with error #%errorlevel%.
 	cmd /c exit %errorlevel%
+
+pause

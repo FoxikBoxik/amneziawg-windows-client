@@ -88,3 +88,4 @@ if exist .deps\prepared goto :render
 :error
 	echo [-] Failed with error #%errorlevel%.
 	cmd /c exit %errorlevel%
+	pause

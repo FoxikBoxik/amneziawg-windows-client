@@ -49,7 +49,7 @@ func runAboutDialog(owner walk.Form) error {
 		showingAboutDialog = nil
 	}()
 	disposables.Add(showingAboutDialog)
-	showingAboutDialog.SetTitle(l18n.Sprintf("About AmneziaWG"))
+	showingAboutDialog.SetTitle(l18n.Sprintf("О DementiaWG"))
 	showingAboutDialog.SetLayout(vbl)
 	if icon, err := loadLogoIcon(32); err == nil {
 		showingAboutDialog.SetIcon(icon)
@@ -65,7 +65,7 @@ func runAboutDialog(owner walk.Form) error {
 	iv.SetCursor(walk.CursorHand())
 	iv.MouseUp().Attach(func(x, y int, button walk.MouseButton) {
 		if button == walk.LeftButton {
-			win.ShellExecute(showingAboutDialog.Handle(), nil, windows.StringToUTF16Ptr("https://amnezia.org/"), nil, nil, win.SW_SHOWNORMAL)
+			win.ShellExecute(showingAboutDialog.Handle(), nil, windows.StringToUTF16Ptr("https://www.youtube.com/watch?v=dQw4w9WgXcQ"), nil, nil, win.SW_SHOWNORMAL)
 		} else if easterEggIndex >= 0 && button == walk.RightButton {
 			if icon, err := loadSystemIcon("moricons", int32(easterEggIndex), 128); err == nil {
 				iv.SetImage(icon)
@@ -90,7 +90,7 @@ func runAboutDialog(owner walk.Form) error {
 	wgFont, _ := walk.NewFont("Segoe UI", 16, walk.FontBold)
 	wgLbl.SetFont(wgFont)
 	wgLbl.SetTextAlignment(walk.AlignHCenterVNear)
-	wgLbl.SetText("AmneziaWG")
+	wgLbl.SetText("DemetiaWG")
 
 	detailsLbl, err := walk.NewTextLabel(showingAboutDialog)
 	if err != nil {
@@ -106,7 +106,7 @@ func runAboutDialog(owner walk.Form) error {
 	copyrightFont, _ := walk.NewFont("Segoe UI", 7, 0)
 	copyrightLbl.SetFont(copyrightFont)
 	copyrightLbl.SetTextAlignment(walk.AlignHCenterVNear)
-	copyrightLbl.SetText("Copyright © 2015-2022 Jason A. Donenfeld.\nCopyright © 2025 AmneziaVPN. AmneziaWG is based on WireGuard,\nchanges and modifications made by FoxinaBox. All Rights Not Reserved.")
+	copyrightLbl.SetText("Copyright © 2022-2025 AmneziaVPN.\nModification for AmenziaWG with new Protocol\nchanges and modifications made by FoxinaBox. \nAll Rights Not Reserved.")
 
 	buttonCP, err := walk.NewComposite(showingAboutDialog)
 	if err != nil {

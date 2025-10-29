@@ -116,7 +116,7 @@ func NewTunnelsPage() (*TunnelsPage, error) {
 		return nil, err
 	}
 	fillerInfoLabel2.SetTextAlignment(walk.AlignCenter)
-	fillerInfoLabel2.SetText(l18n.Sprintf("DementiaWG 1.5 are available only at (dosent exit)."))
+	fillerInfoLabel2.SetText(l18n.Sprintf("DementiaWG 2.0.1 are available only at (dosent exit)."))
 
 	if tp.confView, err = NewConfView(tp.currentTunnelContainer); err != nil {
 		return nil, err
@@ -141,7 +141,7 @@ func NewTunnelsPage() (*TunnelsPage, error) {
 	if err != nil {
 		return nil, err
 	}
-	infoLabel2.SetText(l18n.Sprintf("DementiaWG 1.5 are available only at (dosent exit)."))
+	infoLabel2.SetText(l18n.Sprintf("DementiaWG 2.0.1 are available only at (dosent exit)."))
 
 	controlsContainer, err := walk.NewComposite(tp.currentTunnelContainer)
 	if err != nil {
