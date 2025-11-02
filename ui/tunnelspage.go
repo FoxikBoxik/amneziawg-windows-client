@@ -95,6 +95,19 @@ func NewTunnelsPage() (*TunnelsPage, error) {
 		}
 	})
 
+	// Button below the import button to open WARP instructions
+	warpFillerContainer, _ := walk.NewComposite(tp.fillerContainer)
+	hlayout = walk.NewHBoxLayout()
+	hlayout.SetMargins(walk.Margins{0, 10, 0, 25})
+	warpFillerContainer.SetLayout(hlayout)
+
+	warpFillerBtn, _ := walk.NewPushButton(warpFillerContainer)
+	warpFillerBtn.SetMinMaxSize(walk.Size{200, 0}, walk.Size{200, 0})
+	warpFillerBtn.SetText(l18n.Sprintf("Как получить? WARP"))
+	warpFillerBtn.Clicked().Attach(func() {
+		showError(RunWarpDialog(tp.Form()), tp.Form())
+	})
+
 	fillerInfoContainer, err := walk.NewComposite(tp.fillerContainer)
 	if err != nil {
 		return nil, err
@@ -116,7 +129,7 @@ func NewTunnelsPage() (*TunnelsPage, error) {
 		return nil, err
 	}
 	fillerInfoLabel2.SetTextAlignment(walk.AlignCenter)
-	fillerInfoLabel2.SetText(l18n.Sprintf("DementiaWG 2.0.1 are available only at (dosent exit)."))
+	fillerInfoLabel2.SetText(l18n.Sprintf("Вы используете DementiaWG."))
 
 	if tp.confView, err = NewConfView(tp.currentTunnelContainer); err != nil {
 		return nil, err
@@ -141,7 +154,7 @@ func NewTunnelsPage() (*TunnelsPage, error) {
 	if err != nil {
 		return nil, err
 	}
-	infoLabel2.SetText(l18n.Sprintf("DementiaWG 2.0.1 are available only at (dosent exit)."))
+	infoLabel2.SetText(l18n.Sprintf("Вы используете DementiaWG."))
 
 	controlsContainer, err := walk.NewComposite(tp.currentTunnelContainer)
 	if err != nil {
@@ -152,6 +165,16 @@ func NewTunnelsPage() (*TunnelsPage, error) {
 	controlsContainer.SetLayout(hlayout)
 
 	walk.NewHSpacer(controlsContainer)
+
+	// Button to open WARP instructions dialog (to the left of Edit)
+	warpBtn, err := walk.NewPushButton(controlsContainer)
+	if err != nil {
+		return nil, err
+	}
+	warpBtn.SetText(l18n.Sprintf("Как получить? WARP"))
+	warpBtn.Clicked().Attach(func() {
+		showError(RunWarpDialog(tp.Form()), tp.Form())
+	})
 
 	editTunnel, err := walk.NewPushButton(controlsContainer)
 	if err != nil {

@@ -25,7 +25,7 @@
 <Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
 	<Product
 		Id="*"
-		Name="AmneziaWG"
+		Name="DementiaWG"
 		Language="1033"
 		Version="$(var.WIREGUARD_VERSION)"
 		Manufacturer="Amnezia"
@@ -34,7 +34,7 @@
 			InstallerVersion="500"
 			Compressed="yes"
 			InstallScope="perMachine"
-			Description="AmneziaWG: Fast, Modern, Secure VPN Tunnel"
+			Description="DementiaWG: Fast, Modern, Secure VPN Tunnel"
 			ReadOnly="yes" />
 
 		<MediaTemplate EmbedCab="yes" CompressionLevel="high" />
@@ -65,7 +65,7 @@
 		-->
 		<Directory Id="TARGETDIR" Name="SourceDir">
 			<Directory Id="$(var.PlatformProgramFilesFolder)">
-				<Directory Id="WireGuardFolder" Name="AmneziaWG" />
+				<Directory Id="WireGuardFolder" Name="DementiaWG" />
 			</Directory>
 			<Directory Id="ProgramMenuFolder" />
 		</Directory>
@@ -76,7 +76,7 @@
 		<ComponentGroup Id="WireGuardComponents">
 			<Component Directory="WireGuardFolder" Id="WireGuardExecutable" Guid="c3508d23-3362-47ce-9220-321bdb1a1acc">
 				<File Source="..\$(var.WIREGUARD_PLATFORM)\amneziawg.exe" KeyPath="yes">
-					<Shortcut Id="WireGuardStartMenuShortcut" Directory="ProgramMenuFolder" Name="AmneziaWG" Description="AmneziaWG: Fast, Modern, Secure VPN Tunnel" WorkingDirectory="WireGuardFolder" Advertise="yes" />
+					<Shortcut Id="WireGuardStartMenuShortcut" Directory="ProgramMenuFolder" Name="DementiaWG" Description="DementiaWG: Fast, Modern, Secure VPN Tunnel" WorkingDirectory="WireGuardFolder" Advertise="yes" />
 				</File>
 				<ServiceControl Id="DummyService.3AA0C492_29F4_4342_B608_DB95B2DECB13" Name="DummyService.3AA0C492_29F4_4342_B608_DB95B2DECB13" /><!-- A dummy to make WiX create ServiceControl table for us. -->
 			</Component>

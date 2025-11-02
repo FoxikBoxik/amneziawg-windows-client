@@ -108,6 +108,64 @@ func runAboutDialog(owner walk.Form) error {
 	copyrightLbl.SetTextAlignment(walk.AlignHCenterVNear)
 	copyrightLbl.SetText("Copyright © 2022-2025 AmneziaVPN.\nModification for AmenziaWG with new Protocol\nchanges and modifications made by FoxinaBox. \nAll Rights Not Reserved.")
 
+	// Links grid (2x2)
+	linksCP, err := walk.NewComposite(showingAboutDialog)
+	if err != nil {
+		return err
+	}
+	gl := walk.NewGridLayout()
+	gl.SetSpacing(8)
+	gl.SetMargins(walk.Margins{VNear: 10})
+	gl.SetColumnStretchFactor(0, 1)
+	gl.SetColumnStretchFactor(1, 1)
+	linksCP.SetLayout(gl)
+
+	// Action buttons opening URLs in a 2x2 grid
+	githubPB, err := walk.NewPushButton(linksCP)
+	if err != nil {
+		return err
+	}
+	githubPB.SetAlignment(walk.AlignHCenterVNear)
+	githubPB.SetText(l18n.Sprintf("GitHub"))
+	githubPB.Clicked().Attach(func() {
+		win.ShellExecute(showingAboutDialog.Handle(), nil, windows.StringToUTF16Ptr("https://github.com/FoxikBoxik/amneziawg-windows-client"), nil, nil, win.SW_SHOWNORMAL)
+	})
+	gl.SetRange(githubPB, walk.Rectangle{0, 0, 1, 1})
+
+	telegramPB, err := walk.NewPushButton(linksCP)
+	if err != nil {
+		return err
+	}
+	telegramPB.SetAlignment(walk.AlignHCenterVNear)
+	telegramPB.SetText(l18n.Sprintf("Telegram"))
+	telegramPB.Clicked().Attach(func() {
+		win.ShellExecute(showingAboutDialog.Handle(), nil, windows.StringToUTF16Ptr("https://t.me/findllimonix"), nil, nil, win.SW_SHOWNORMAL)
+	})
+	gl.SetRange(telegramPB, walk.Rectangle{1, 0, 1, 1})
+
+	supportPB, err := walk.NewPushButton(linksCP)
+	if err != nil {
+		return err
+	}
+	supportPB.SetAlignment(walk.AlignHCenterVNear)
+	supportPB.SetText(l18n.Sprintf("Поддержать автора"))
+	supportPB.Clicked().Attach(func() {
+		win.ShellExecute(showingAboutDialog.Handle(), nil, windows.StringToUTF16Ptr("https://www.donationalerts.com/r/foxinabox"), nil, nil, win.SW_SHOWNORMAL)
+	})
+	gl.SetRange(supportPB, walk.Rectangle{0, 1, 1, 1})
+
+	questionsPB, err := walk.NewPushButton(linksCP)
+	if err != nil {
+		return err
+	}
+	questionsPB.SetAlignment(walk.AlignHCenterVNear)
+	questionsPB.SetText(l18n.Sprintf("Получить WARP"))
+	questionsPB.Clicked().Attach(func() {
+		showError(RunWarpDialog(showingAboutDialog), showingAboutDialog)
+	})
+	gl.SetRange(questionsPB, walk.Rectangle{1, 1, 1, 1})
+
+	// Bottom row with only Close button
 	buttonCP, err := walk.NewComposite(showingAboutDialog)
 	if err != nil {
 		return err
@@ -134,3 +192,5 @@ func runAboutDialog(owner walk.Form) error {
 
 	return nil
 }
+
+// WARP dialog moved to warpdialog.go (RunWarpDialog)

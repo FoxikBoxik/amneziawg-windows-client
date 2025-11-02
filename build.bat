@@ -25,7 +25,7 @@ if exist .deps\prepared goto :render
 	cd .. || goto :error
 
 :render
-	echo [+] Rendering icons
+	nhcolor.exe 09 [+] Rendering icons
 	for %%a in ("ui\icon\*.svg") do convert -background none "%%~fa" -define icon:auto-resize="256,192,128,96,64,48,40,32,24,20,16" -compress zip "%%~dpna.ico" || goto :error
 
 :build
@@ -43,7 +43,9 @@ if exist .deps\prepared goto :render
 	call :build_plat x86 i686 386 || goto :error
 	call :build_plat amd64 x86_64 amd64 || goto :error
 	call :build_plat arm64 aarch64 arm64 || goto :error
-
+	nhcolor.exe 02 [+] Success build all platforms! Press any key to close.
+	pause >nul
+	cmd /c exit %errorlevel%
 :sign
 	if exist .\sign.bat call .\sign.bat
 	if "%SigningProvider%"=="" goto :success
@@ -69,12 +71,12 @@ if exist .deps\prepared goto :render
 :build_plat
 	set GOARCH=%~3
 	mkdir %1 >NUL 2>&1
-	echo [+] Assembling resources %1
+	nhcolor.exe 0e [+] Assembling resources %1
 	%~2-w64-mingw32-windres -DWIREGUARD_VERSION_ARRAY=%WIREGUARD_VERSION_ARRAY% -DWIREGUARD_VERSION_STR=%WIREGUARD_VERSION% -i resources.rc -o "resources_%~3.syso" -O coff -c 65001 || exit /b %errorlevel%
-	echo [+] Building program %1
+	nhcolor.exe 06 [+] Building program %1
 	go build -tags load_wgnt_from_rsrc -ldflags="-H windowsgui -s -w" -trimpath -buildvcs=false -v -o "%~1\amneziawg.exe" || exit /b 1
 	if not exist "%~1\awg.exe" (
-		echo [+] Building command line tools %1
+		nhcolor.exe 0e [+] Building command line tools %1
 		del .deps\src\*.exe .deps\src\*.o .deps\src\wincompat\*.o .deps\src\wincompat\*.lib 2> NUL
 		set LDFLAGS=-s
 		make --no-print-directory -C .deps\src PLATFORM=windows CC=%~2-w64-mingw32-gcc WINDRES=%~2-w64-mingw32-windres V=1 RUNSTATEDIR= SYSTEMDUNITDIR= -j%NUMBER_OF_PROCESSORS% || exit /b 1
@@ -83,9 +85,10 @@ if exist .deps\prepared goto :render
 	if not exist "%~1\wintun.dll" (
 		copy /Y ".deps\wintun\bin\%~1\wintun.dll" "%~1\wintun.dll" > NUL || exit /b 1
 	)
+	nhcolor.exe 0a [+] Success build %1!
 	goto :eof
 
 :error
-	echo [-] Failed with error #%errorlevel%.
+	nhcolor.exe 0c [-] Failed with error #%errorlevel%.
 	cmd /c exit %errorlevel%
-	pause
+	pause >nul
