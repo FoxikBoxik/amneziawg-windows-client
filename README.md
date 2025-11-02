@@ -6,22 +6,7 @@
 
 ## Быстрый старт
 
-1. **Скачайте репозиторий**  
-   Нажмите на кнопку `Code` → `Download ZIP` или используйте git:
-
-   ```bash
-   git clone https://github.com/FoxikBoxik/amneziawg-windows-client.git
-   cd amneziawg-windows-client
-   ```
-
-2. **Запустите**  
-   В папке проекта просто дважды кликните
-   ```bat
-   quickinstall.bat
-   ```
-   (или запустите вручную через Проводник)
-
-3. Следуйте инструкциям в окне!
+etqbhtudhm
 
 ---
 
