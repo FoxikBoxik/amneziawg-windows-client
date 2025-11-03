@@ -4,9 +4,12 @@
 
 ---
 
-## Быстрый старт
+## Скачивание &amp; Установка
 
-etqbhtudhm
+1. Скачайте релиз для вашей системы в releases
+  1.2 amd64 - для новых процессоров ; x86 для 32 двух битных процессоров; arm64 для arm процессоров. **не перепутайте arm с amd разные вещи!**
+2. Запустите скачаный файл `amneziawg-ar.msi`
+3. Дождитесь установки... **Все готово**
 
 ---
 
@@ -19,7 +22,7 @@ etqbhtudhm
 ## Поддержка и чат
 
 Telegram-чат: [@findllimonix_chat](https://t.me/findllimonix_chat)
-
+Telegram: [@findllimonix](https://t.me/findllimonix_chat)
 ---
 
 ## Лицензия
