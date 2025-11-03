@@ -1,4 +1,4 @@
-<p align="center"><a href="https://t.me/findllimonix"><img src="https://i.imgur.com/c3lsdxS.png" alt="DementiaWG"/></a></p>
+<p align="center"><a href="https://www.google.com/search?q=%D0%94%D0%B5%D0%BC%D0%B5%D0%BD%D1%86%D0%B8%D1%8F"><img src="https://i.imgur.com/c3lsdxS.png" alt="DementiaWG"/></a></p>
 <h3 align="center"></h3>
 <br>
 <div align="center">
@@ -44,9 +44,7 @@
 
 ---
 ## Поддержка и чат
-
-Telegram-чат: [@findllimonix_chat](https://t.me/findllimonix_chat)
-Telegram: [@findllimonix](https://t.me/findllimonix_chat)
+- Что?
 ---
 
 ## Лицензия
