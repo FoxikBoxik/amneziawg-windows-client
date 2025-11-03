@@ -1,6 +1,6 @@
 # DementiaWG for Windows
 
-Минималистичный клиент для Amnezia/DementiaWG.
+Форк AmneziaWG (AmneziaVPN) с крутыми фишками
 
 ---
 
