@@ -68,7 +68,7 @@ func RunWarpDialog(owner walk.Form) error {
 
 	step1, _ := walk.NewTextLabel(stepsContainer)
 	step1.SetFont(stepFont)
-	step1.SetText(l18n.Sprintf("1. Откройте сайт и выберете нужное вам зеркало"))
+	step1.SetText(l18n.Sprintf("1. Откройте сайт"))
 
 	step2, _ := walk.NewTextLabel(stepsContainer)
 	step2.SetFont(stepFont)
@@ -77,7 +77,7 @@ func RunWarpDialog(owner walk.Form) error {
 	step21, _ := walk.NewTextLabel(stepsContainer)
 	step21Font, _ := walk.NewFont("Segoe UI", 8, walk.FontBold)
 	step21.SetFont(step21Font)
-	step21.SetText(l18n.Sprintf("2.1. Обязательно выберите формат ‘AmneziaWG 1.5’"))
+	step21.SetText(l18n.Sprintf("2.1. Выбирайте AmneziaWG - AWG 1.5‘’"))
 
 	step3, _ := walk.NewTextLabel(stepsContainer)
 	step3.SetFont(stepFont)
@@ -116,7 +116,7 @@ func RunWarpDialog(owner walk.Form) error {
 	infoFont, _ := walk.NewFont("Segoe UI", 8, 0)
 	info.SetFont(infoFont)
 	info.SetTextAlignment(walk.AlignHNearVNear)
-	info.SetText(l18n.Sprintf("Чат: @findllimonix_chat в Telegram"))
+	info.SetText(l18n.Sprintf("made by foxinabox"))
 
 	// Buttons
 	btns, err := walk.NewComposite(dlg)
@@ -136,7 +136,7 @@ func RunWarpDialog(owner walk.Form) error {
 	openBtn.SetFont(openBtnFont)
 	openBtn.SetText(l18n.Sprintf("Открыть сайт"))
 	openBtn.Clicked().Attach(func() {
-		win.ShellExecute(dlg.Handle(), nil, windows.StringToUTF16Ptr("https://warp-mirrors.vercel.app/"), nil, nil, win.SW_SHOWNORMAL)
+		win.ShellExecute(dlg.Handle(), nil, windows.StringToUTF16Ptr("https://warp-generator.github.io/warp/"), nil, nil, win.SW_SHOWNORMAL)
 	})
 
 	closeBtn, err := walk.NewPushButton(btns)
